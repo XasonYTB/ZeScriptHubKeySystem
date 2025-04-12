@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ZeScript Hub - Key System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+      }
+      input {
+        padding: 10px;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Enter Your Key</h1>
+    <input id="keyInput" placeholder="Enter key here..." />
+    <br />
+    <button onclick="checkKey()">Submit</button>
+
+    <script>
+      function checkKey() {
+        const validKey = "mysecretkey123";
+        const userKey = document.getElementById("keyInput").value;
+        if (userKey === validKey) {
+          window.location.href = "./scripts/script.lua";
+        } else {
+          alert("Invalid Key");
+        }
+      }
+    </script>
+  </body>
+</html>
