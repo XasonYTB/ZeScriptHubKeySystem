@@ -26,16 +26,43 @@
     <input id="keyInput" placeholder="Enter key here..." />
     <br />
     <button onclick="checkKey()">Submit</button>
+    <br /><br />
+    <button onclick="generateKey()">Generate Key</button>
 
     <script>
       function checkKey() {
-        const validKey = "mysecretkey123";
         const userKey = document.getElementById("keyInput").value;
-        if (userKey === validKey) {
-          window.location.href = "./scripts/script.lua";
+        const storedKey = localStorage.getItem("key");
+        const storedTime = localStorage.getItem("keyTimestamp");
+
+        // Check if the key exists and hasn't expired
+        if (storedKey && storedKey === userKey) {
+          const currentTime = new Date().getTime();
+          const timeElapsed = (currentTime - storedTime) / (1000 * 60 * 60); // Time in hours
+          if (timeElapsed < 24) {
+            window.location.href = "./scripts/script.lua"; // Valid key, redirect to script
+          } else {
+            alert("Your key has expired!");
+          }
         } else {
-          alert("Invalid Key");
+          alert("Invalid key!");
         }
+      }
+
+      function generateKey() {
+        const key = generateRandomKey();
+        const timestamp = new Date().getTime(); // Current timestamp in milliseconds
+
+        // Store key and timestamp in localStorage
+        localStorage.setItem("key", key);
+        localStorage.setItem("keyTimestamp", timestamp);
+
+        alert("Your new key is: " + key);
+      }
+
+      function generateRandomKey() {
+        // Generate a random key (you can make this more complex)
+        return "key" + Math.random().toString(36).substring(2, 15);
       }
     </script>
   </body>
